@@ -13,24 +13,83 @@ public class PlayerController : MonoBehaviour
     public float jumpforce;
     public bool hasJumped;
     public Collider2D tilemapCollider;
-
+    public Animator playeranimator;
+    public Sprite risingSprite;
+    public Sprite fallingSprite;
+    public bool isTouchingTilemap;
+    public bool dashandquestionmarkafter;
+    public float dashforce;
+    public bool isdashbuttonheld;
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !hasJumped)
+        if (Input.GetKeyDown(KeyCode.LeftShift) ^ Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            isdashbuttonheld = true;
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift) ^ Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            isdashbuttonheld = false;
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift) ^ Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            if(direction == "right")
+            {
+                player.AddForce(Vector2.right * dashforce);
+                dashandquestionmarkafter = false;
+            }
+            else
+            {
+                player.AddForce(Vector2.left * dashforce);
+                dashandquestionmarkafter = false;
+            }
+        }
+        if((Input.GetKeyDown(KeyCode.Space) ^ Input.GetKeyDown(KeyCode.Mouse0)) && !hasJumped)
         {
             Debug.Log("jumped");
             hasJumped = true;
             player.AddForce(Vector2.up * jumpforce);
         }
-        if(direction == "right")
+        if(direction == "right" && !isdashbuttonheld)
         {
             player.AddForce(Vector2.right * speed);
             spriteRenderer.flipX = false;
         }
-        if (direction == "left")
+        if (direction == "left" && !isdashbuttonheld)
         {
             player.AddForce(Vector2.left * speed);
             spriteRenderer.flipX = true;
+        }
+        if (isTouchingTilemap == false)
+        {
+            playeranimator.enabled = false;
+            if (player.velocity.y > 0)
+            {
+                spriteRenderer.sprite = risingSprite;
+            }
+            else
+            {
+                spriteRenderer.sprite = fallingSprite;
+            }
+        }
+        else
+        {
+            playeranimator.enabled = true;
+        }
+        if (isdashbuttonheld)
+        {
+            playeranimator.enabled = false;
+            if (player.velocity.y > 0)
+            {
+                spriteRenderer.sprite = risingSprite;
+            }
+            else
+            {
+                spriteRenderer.sprite = fallingSprite;
+            }
+        }
+        else
+        {
+            playeranimator.enabled = true;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -56,7 +115,15 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "tilemap")
         {
             hasJumped = false;
+            isTouchingTilemap = true;
             Debug.Log("body collided with tilemap");
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "tilemap")
+        {
+            isTouchingTilemap = false;
         }
     }
 }
