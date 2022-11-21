@@ -59,23 +59,7 @@ public class PlayerController : MonoBehaviour
             player.AddForce(Vector2.left * speed);
             spriteRenderer.flipX = true;
         }
-        if (isTouchingTilemap == false)
-        {
-            playeranimator.enabled = false;
-            if (player.velocity.y > 0)
-            {
-                spriteRenderer.sprite = risingSprite;
-            }
-            else
-            {
-                spriteRenderer.sprite = fallingSprite;
-            }
-        }
-        else
-        {
-            playeranimator.enabled = true;
-        }
-        if (isdashbuttonheld)
+        if (isTouchingTilemap == false || isdashbuttonheld)
         {
             playeranimator.enabled = false;
             if (player.velocity.y > 0)
