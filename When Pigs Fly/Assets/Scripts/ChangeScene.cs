@@ -15,6 +15,6 @@ public class ChangeScene : MonoBehaviour
     void TaskOnClick()
     {   
         Debug.Log("click");
-        SceneManager.LoadScene("TheLevel");
+        SceneManager.LoadScene("StoryStartScene");
     }
 }

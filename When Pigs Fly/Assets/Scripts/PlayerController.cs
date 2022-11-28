@@ -20,30 +20,26 @@ public class PlayerController : MonoBehaviour
     public bool dashandquestionmarkafter;
     public float dashforce;
     public bool isdashbuttonheld;
-    void Update()
+    public bool isdashbuttonreleased;
+    public bool jumpPressed;
+    void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) ^ Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            isdashbuttonheld = true;
-        }
-        if(Input.GetKeyUp(KeyCode.LeftShift) ^ Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            isdashbuttonheld = false;
-        }
-        if(Input.GetKeyUp(KeyCode.LeftShift) ^ Input.GetKeyUp(KeyCode.Mouse1))
+        if(isdashbuttonreleased)
         {
             if(direction == "right")
             {
                 player.AddForce(Vector2.right * dashforce);
                 dashandquestionmarkafter = false;
+                isdashbuttonreleased = false;
             }
             else
             {
                 player.AddForce(Vector2.left * dashforce);
                 dashandquestionmarkafter = false;
+                isdashbuttonreleased = false;
             }
         }
-        if((Input.GetKeyDown(KeyCode.Space) ^ Input.GetKeyDown(KeyCode.Mouse0)) && !hasJumped)
+        if(jumpPressed && !hasJumped)
         {
             Debug.Log("jumped");
             hasJumped = true;
@@ -75,6 +71,29 @@ public class PlayerController : MonoBehaviour
         {
             playeranimator.enabled = true;
         }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            isdashbuttonheld = true;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            isdashbuttonheld = false;
+            isdashbuttonreleased = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            StartCoroutine(jumpthingy());
+        }
+
+    }
+    IEnumerator jumpthingy()
+    {
+        jumpPressed = true;
+        yield return new WaitForSeconds(0.05f);
+        jumpPressed = false;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
