@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -16,29 +16,17 @@ public class StartExplainScript : MonoBehaviour
         }
         if (stage == 1)
         {
-            text.text = "Once upon a time, there was a reality in which pigs ruled the earth. Click to continue.";
+            text.text = "Once upon a time, there was an Earth which was ruled by pigs. You are Igpay, a mutant pig, as a result of a failed government lab experiment, have escaped your prison. You were part of an experiment called G00d Bac0n.";
         }
         else if(stage == 2)
         {
-            text.text = "They lived in harmony, until a disease struck. It was called the Bird Flew. Click to continue.";
+            text.text = "G00d Bac0n was an experiment which fused pig DNA with other animals. The result of the fusal of bird DNA and pig DNA, you had wings, and had no legs, nor a tail.";
         }
         else if(stage == 3)
         {
-            text.text = "It caused a pig's legs to pop off and the pig to grow wings. Click to continue.";
+            text.text = "Before your daring escape, you arranged to meet up somewhere with your fellow labmates, who stole a ship. Although there is a problem with reaching the meeting point. It happens to be in space.";
         }
-        else if(stage == 4)
-        {
-            text.text = "The pig government ordered all healthy pigs to board a spaceship to escape and settle somewhere else. Click to continue.";
-        }
-        else if(stage == 5)
-        {
-            text.text = "You are a brave pig, who is infected with the Bird Flew. You know that it does not spread, and you must explain to the government. Click to continue.";
-        }
-        else if(stage == 6)
-        {
-            text.text = "Good luck. Click to begin.";
-        }
-        else if (stage == 7)
+        else if (stage == 4)
         {
             SceneManager.LoadScene("TheLevel");
         }

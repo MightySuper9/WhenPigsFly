@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -16,18 +16,16 @@ public class EndExplainScript : MonoBehaviour
         }
         if (stage == 1)
         {
-            text.text = "You have gotten into the escape ship. You are surrounded by healthy pigs. 'Hello.' You say. Click to continue.";
+            text.text = "You have gotten into the escape ship. You look at your fellow labmates and the ship flies off into the distance. The End.";
         }
         else if (stage == 2)
         {
-            text.text = "The Pig Leader looks at you. It turns pale. 'Oh no' it says. Click to continue.";
+            text.text = "Thanks for playing! " +
+                "You died " + CheckpointScript.attempts + " times!";
         }
         else if (stage == 3)
         {
-            text.text = "'Wait, it's ok.' You say, and then there is a collective grunt as the legs fall off the pigs around you.";
-        }
-        else if (stage == 4)
-        {
+            CheckpointScript.attempts = 0;
             SceneManager.LoadScene("TitleScene");
         }
     }

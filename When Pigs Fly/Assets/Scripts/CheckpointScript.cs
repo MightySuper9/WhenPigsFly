@@ -17,6 +17,8 @@ public class CheckpointScript : MonoBehaviour
     public string direction;
     public static int attempts;
     public TextMeshProUGUI text;
+    public AudioSource audioSource;
+    public AudioClip deathSound;
     public void Start()
     {
         animator.enabled = false;
@@ -38,6 +40,7 @@ public class CheckpointScript : MonoBehaviour
         text.text = "Respawns: " + attempts;
         if ((Input.GetKeyDown(KeyCode.R) || PlayerKiller.isPlayerDead)&& flagCheckpointNum == playerCheckpointNum)
         {
+            audioSource.PlayOneShot(deathSound);
             player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             player.GetComponent<PlayerController>().direction = direction;
             player.transform.position = checkPointLocation;

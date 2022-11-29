@@ -22,10 +22,15 @@ public class PlayerController : MonoBehaviour
     public bool isdashbuttonheld;
     public bool isdashbuttonreleased;
     public bool jumpPressed;
+    public AudioSource audiosource;
+    public AudioClip jumpsound;
+    public AudioClip dashstart;
+    public AudioClip dashend;
     void FixedUpdate()
     {
         if(isdashbuttonreleased)
         {
+            audiosource.PlayOneShot(dashend);
             if(direction == "right")
             {
                 player.AddForce(Vector2.right * dashforce);
@@ -41,6 +46,7 @@ public class PlayerController : MonoBehaviour
         }
         if(jumpPressed && !hasJumped)
         {
+            audiosource.PlayOneShot(jumpsound);
             Debug.Log("jumped");
             hasJumped = true;
             player.AddForce(Vector2.up * jumpforce);
@@ -76,6 +82,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Mouse1))
         {
+            audiosource.PlayOneShot(dashstart);
             isdashbuttonheld = true;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Mouse1))
