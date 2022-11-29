@@ -16,7 +16,7 @@ public class StartExplainScript : MonoBehaviour
         }
         if (stage == 1)
         {
-            text.text = "Once upon a time, there was an Earth which was ruled by pigs. You are Igpay, a mutant pig, as a result of a failed government lab experiment, have escaped your prison. You were part of an experiment called G00d Bac0n.";
+            text.text = "Once upon a time, there was an Earth which was ruled by pigs. You are Igpay, a mutant pig, as a result of a failed government lab experiment, and you have escaped your prison. You were part of an experiment called G00d Bac0n.";
         }
         else if(stage == 2)
         {
